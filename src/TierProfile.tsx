@@ -1,15 +1,15 @@
 import * as assets from "./assets";
-import { TierData } from "./vArchive";
+import { Tier } from "./vArchive/types";
 
 interface TierProfileProps {
   title: string;
-  data: TierData;
+  tier: Tier;
 }
 
 const ZOOM_RATIO = 0.5;
 
-function TierProfile({ title, data }: TierProfileProps) {
-  const tierAssets = assets.tier[data.code];
+function TierProfile({ title, tier }: TierProfileProps) {
+  const tierAssets = assets.tier[tier.code];
   const commonAssets = assets.common;
 
   return (
@@ -74,7 +74,7 @@ function TierProfile({ title, data }: TierProfileProps) {
           color: "#fff",
         }}
       >
-        {data.name.toUpperCase()}
+        {tier.name.toUpperCase()}
       </span>
       <span
         style={{
@@ -87,7 +87,7 @@ function TierProfile({ title, data }: TierProfileProps) {
           color: "#fff",
         }}
       >
-        {Math.floor(data.point)}P
+        {Math.floor(tier.point)}P
       </span>
     </div>
   );

@@ -1,4 +1,5 @@
 export const common = {
+  background: "background.png",
   symbolUnderlay: "symbol_underlay.png",
   frame: "frame.png",
 };
@@ -39,9 +40,19 @@ export const tier = {
     illust: "tier/bronze/illust.png",
     symbol: "tier/bronze/symbol.png",
   },
+  IR: {
+    background: "tier/iron/background.png",
+    illust: "tier/iron/illust.png",
+    symbol: "tier/iron/symbol.png",
+  },
   AM: {
-    background: "tier/amateur/background.png",
-    illust: "tier/amateur/illust.png",
-    symbol: "tier/amateur/symbol.png",
+    background: "tier/iron/background.png",
+    illust: "tier/iron/illust.png",
+    symbol: "tier/iron/symbol.png",
+  },
+  BG: {
+    background: "tier/iron/background.png",
+    illust: "tier/iron/illust.png",
+    symbol: "tier/iron/symbol.png",
   },
 };

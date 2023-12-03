@@ -1,25 +1,22 @@
 import { useEffect, useState } from "react";
+import { Tier, UserInfo } from "./types";
+import { getTierFromPoint } from "./tierData";
 
-export type TierCode = "GM" | "M" | "DM" | "PT" | "GD" | "SV" | "BR" | "AM";
-
-export interface TierData {
-  point: number;
-  name: string;
-  code: TierCode;
-}
-
-export interface UserInfo {
-  button4: TierData;
-  button5: TierData;
-  button6: TierData;
-  button8: TierData;
-}
-
-function sanitizeResponse(res: any): TierData {
+function sanitizeResponse(res: any): Tier {
   return {
     point: res.tierPoint,
     name: res.tier.name,
     code: res.tier.code,
+  };
+}
+
+function getAverageTier(tiers: Tier[]): Tier {
+  const sum = tiers.reduce((sum, tier) => sum + tier.point, 0);
+  const average = sum / tiers.length;
+
+  return {
+    ...getTierFromPoint(average),
+    point: average,
   };
 }
 
@@ -51,6 +48,7 @@ export async function getUserInfo(userName: string) {
       button5: b5,
       button6: b6,
       button8: b8,
+      average: getAverageTier([b4, b5, b6, b8]),
     })
   );
 }
