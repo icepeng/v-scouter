@@ -146,6 +146,12 @@ async function renderCanvas(userInfo: UserInfo, isAnonymous: boolean) {
     341
   );
 
+  ctx.drawImage(
+    await renderTierProfile("EXPECTED LADDER TIER", userInfo.expected),
+    1318,
+    341 + 250 + 52
+  );
+
   return canvas.transferToImageBitmap();
 }
 
