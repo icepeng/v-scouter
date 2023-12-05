@@ -61,7 +61,13 @@ async function renderTierProfile(
   drawTextWithSpacing(ctx, tier.name.toUpperCase(), 41, 140, 70 * -0.04);
 
   ctx.font = "800 23px Montserrat, Pretendard, sans-serif";
-  drawTextWithSpacing(ctx, Math.floor(tier.point) + "P", 41, 183, 23 * 0.36);
+  drawTextWithSpacing(
+    ctx,
+    Math.floor(tier.point) + (tier.type === "ladder" ? "LP" : "P"),
+    41,
+    183,
+    23 * 0.36
+  );
 
   return canvas.transferToImageBitmap();
 }
