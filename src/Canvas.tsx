@@ -2,10 +2,20 @@ import { memo, useEffect, useRef } from "react";
 import { ArchiveTier, LadderTier, UserInfo } from "./vArchive/types";
 import * as assets from "./assets";
 
+const imageCache = new Map<string, HTMLImageElement>();
+
 async function createImage(src: string) {
   return new Promise<HTMLImageElement>((resolve) => {
+    if (imageCache.has(src)) {
+      resolve(imageCache.get(src)!);
+      return;
+    }
+
     const image = new Image();
-    image.onload = () => resolve(image);
+    image.onload = () => {
+      imageCache.set(src, image);
+      resolve(image);
+    };
     image.src = src;
   });
 }
