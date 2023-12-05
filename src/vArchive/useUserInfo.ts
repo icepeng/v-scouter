@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
-import { ArchiveTier, LadderTier, RawTiers, UserInfo } from "./types";
 import { expectationTable, getTierFromPoint } from "./tierData";
+import { ArchiveTier, LadderTier, RawTiers } from "./types";
 
 function sanitizeResponse(res: any): ArchiveTier | null {
   if (!res.success) {
