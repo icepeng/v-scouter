@@ -66,12 +66,9 @@ async function renderTierProfile(
   return canvas.transferToImageBitmap();
 }
 
-async function renderCanvas(
-  ctx: CanvasRenderingContext2D,
-  userInfo: UserInfo,
-  isAnonymous: boolean
-) {
-  ctx.clearRect(0, 0, 2500, 1700);
+async function renderCanvas(userInfo: UserInfo, isAnonymous: boolean) {
+  const canvas = new OffscreenCanvas(2500, 1700);
+  const ctx = canvas.getContext("2d")!;
   ctx.drawImage(await createImage(assets.common.background), 0, 0, 2500, 1700);
 
   ctx.font = "800 37px Montserrat, Pretendard, sans-serif";
@@ -142,6 +139,8 @@ async function renderCanvas(
     1318,
     341
   );
+
+  return canvas.transferToImageBitmap();
 }
 
 export const TierCanvas = memo(
@@ -158,7 +157,9 @@ export const TierCanvas = memo(
         return;
       }
 
-      renderCanvas(ctx, userInfo, isAnonymous);
+      renderCanvas(userInfo, isAnonymous).then((res) =>
+        ctx.drawImage(res, 0, 0)
+      );
     }, [userInfo, isAnonymous]);
 
     return (
