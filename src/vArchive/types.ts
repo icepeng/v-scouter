@@ -10,16 +10,23 @@ export type TierCode =
   | "AM"
   | "BG";
 
-export interface Tier {
+export interface ArchiveTier {
+  type: "vArchive";
   point: number;
   name: string;
   code: TierCode;
 }
 
+export interface LadderTier {
+  type: "ladder";
+  point: number;
+  name: string;
+  code: TierCode | "UNRANKED";
+}
+
 export interface UserInfo {
-  button4: Tier;
-  button5: Tier;
-  button6: Tier;
-  button8: Tier;
-  average: Tier;
+  button4: ArchiveTier | null;
+  button5: ArchiveTier | null;
+  button6: ArchiveTier | null;
+  button8: ArchiveTier | null;
 }

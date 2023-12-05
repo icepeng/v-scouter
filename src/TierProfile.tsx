@@ -1,15 +1,15 @@
 import * as assets from "./assets";
-import { Tier } from "./vArchive/types";
+import { ArchiveTier, LadderTier } from "./vArchive/types";
 
 interface TierProfileProps {
   title: string;
-  tier: Tier;
+  tier: ArchiveTier | LadderTier;
 }
 
 const ZOOM_RATIO = 0.5;
 
 function TierProfile({ title, tier }: TierProfileProps) {
-  const tierAssets = assets.tier[tier.code];
+  const tierAssets = assets.tier[tier.code === "UNRANKED" ? "IR" : tier.code];
   const commonAssets = assets.common;
 
   return (
@@ -87,7 +87,8 @@ function TierProfile({ title, tier }: TierProfileProps) {
           color: "#fff",
         }}
       >
-        {Math.floor(tier.point)}P
+        {Math.floor(tier.point)}
+        {tier.type === "ladder" ? "LP" : "P"}
       </span>
     </div>
   );

@@ -1,22 +1,68 @@
 import { useEffect, useState } from "react";
-import { Tier, UserInfo } from "./types";
-import { getTierFromPoint } from "./tierData";
+import { ArchiveTier, LadderTier, UserInfo } from "./types";
+import { expectationTable, getTierFromPoint } from "./tierData";
 
-function sanitizeResponse(res: any): Tier {
+function sanitizeResponse(res: any): ArchiveTier | null {
+  if (!res.success) {
+    return null;
+  }
+
   return {
+    type: "vArchive",
     point: res.tierPoint,
     name: res.tier.name,
     code: res.tier.code,
   };
 }
 
-function getAverageTier(tiers: Tier[]): Tier {
-  const sum = tiers.reduce((sum, tier) => sum + tier.point, 0);
+function getAverageTier(tiers: (ArchiveTier | null)[]): ArchiveTier {
+  const sum = tiers.reduce((sum, tier) => sum + (tier ? tier.point : 0), 0);
   const average = sum / tiers.length;
 
   return {
+    type: "vArchive",
     ...getTierFromPoint(average),
     point: average,
+  };
+}
+
+function getExpectedTier(tiers: (ArchiveTier | null)[]): LadderTier {
+  const sortedTiers = tiers
+    .filter((tier) => !!tier)
+    .sort((a, b) => b!.point - a!.point) as ArchiveTier[];
+
+  const matchedLadderTier = expectationTable.find(
+    ({ requiredButtons, requiredPoint }) => {
+      if (sortedTiers.length < requiredButtons) {
+        return false;
+      }
+
+      const topTiers = sortedTiers.slice(0, requiredButtons);
+      const sum = topTiers.reduce((sum, tier) => sum + tier.point, 0);
+      const average = sum / requiredButtons;
+
+      return average >= requiredPoint;
+    }
+  );
+
+  if (matchedLadderTier) {
+    return {
+      type: "ladder",
+      name: matchedLadderTier.tierName,
+      code: matchedLadderTier.tierCode,
+      point: ["Diamond I", "Platinum I", "Gold I"].includes(
+        matchedLadderTier.tierName
+      )
+        ? 50
+        : 0,
+    };
+  }
+
+  return {
+    type: "ladder",
+    name: "UNRANKED",
+    code: "UNRANKED",
+    point: 0,
   };
 }
 
@@ -48,17 +94,41 @@ export async function getUserInfo(userName: string) {
       button5: b5,
       button6: b6,
       button8: b8,
-      average: getAverageTier([b4, b5, b6, b8]),
     })
   );
 }
 
-export function useUserInfo(userName: string) {
+export function useUserInfo(
+  userName: string,
+  selectedButtons: Record<
+    "button4" | "button5" | "button6" | "button8",
+    boolean
+  >
+) {
   const [data, setData] = useState<UserInfo | null>(null);
 
   useEffect(() => {
     getUserInfo(userName).then(setData);
   }, [userName]);
 
-  return data;
+  return data
+    ? {
+        button4: selectedButtons.button4 ? data.button4 : null,
+        button5: selectedButtons.button5 ? data.button5 : null,
+        button6: selectedButtons.button6 ? data.button6 : null,
+        button8: selectedButtons.button8 ? data.button8 : null,
+        average: getAverageTier([
+          selectedButtons.button4 ? data.button4 : null,
+          selectedButtons.button5 ? data.button5 : null,
+          selectedButtons.button6 ? data.button6 : null,
+          selectedButtons.button8 ? data.button8 : null,
+        ]),
+        expected: getExpectedTier([
+          selectedButtons.button4 ? data.button4 : null,
+          selectedButtons.button5 ? data.button5 : null,
+          selectedButtons.button6 ? data.button6 : null,
+          selectedButtons.button8 ? data.button8 : null,
+        ]),
+      }
+    : null;
 }
