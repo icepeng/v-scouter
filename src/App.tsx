@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import "./App.css";
 import TierProfile from "./TierProfile";
 import { useUserInfo } from "./vArchive/useUserInfo";
 import { common } from "./assets";
+import html2canvas from "html2canvas";
 
 function App() {
   const [userName, setUserName] = useState("aaaa");
@@ -13,7 +14,9 @@ function App() {
     button6: true,
     button8: true,
   });
+  const [isAnonymous, setIsAnonymous] = useState(false);
   const userInfo = useUserInfo(submittedName, selectedButtons);
+  const captureRef = useRef<HTMLDivElement>(null);
 
   const dateYYYY = new Date().getFullYear().toString();
   const dateMM = (new Date().getMonth() + 1).toString().padStart(2, "0");
@@ -23,9 +26,26 @@ function App() {
     return null;
   }
 
+  const onSave = async () => {
+    if (!captureRef.current) {
+      return;
+    }
+
+    const canvas = await html2canvas(captureRef.current, {
+      backgroundColor: null,
+      scale: 2,
+    });
+
+    const link = document.createElement("a");
+    link.download = `V-SCOUTER.png`;
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+  };
+
   return (
     <div>
       <div
+        ref={captureRef}
         style={{
           position: "relative",
           width: 1250,
@@ -50,7 +70,7 @@ function App() {
           }}
         >
           <span style={{ color: "#13e7d3" }}>
-            {submittedName.toUpperCase()}
+            {isAnonymous ? "PLAYER" : submittedName.toUpperCase()}
           </span>
           <span>'s V-SCOUTER</span>
         </span>
@@ -162,6 +182,14 @@ function App() {
         }
       />
       <label htmlFor="button8">8버튼</label>
+      <input
+        id="anonymous"
+        type="checkbox"
+        checked={isAnonymous}
+        onChange={(e) => setIsAnonymous(e.target.checked)}
+      />
+      <label htmlFor="anonymous">익명</label>
+      <button onClick={onSave}>이미지로 저장</button>
     </div>
   );
 }
