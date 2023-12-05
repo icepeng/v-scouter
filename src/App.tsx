@@ -15,6 +15,10 @@ function App() {
   });
   const userInfo = useUserInfo(submittedName, selectedButtons);
 
+  const dateYYYY = new Date().getFullYear().toString();
+  const dateMM = (new Date().getMonth() + 1).toString().padStart(2, "0");
+  const dateDD = new Date().getDate().toString().padStart(2, "0");
+
   if (!userInfo) {
     return null;
   }
@@ -27,6 +31,7 @@ function App() {
           width: 1250,
           height: 850,
           fontFamily: "Montserrat, Pretendard, sans-serif",
+          marginBottom: 12,
         }}
       >
         <img
@@ -96,6 +101,18 @@ function App() {
         >
           <TierProfile title="AVERAGE TIER & POINTS" tier={userInfo.average} />
           <TierProfile title="EXPECTED LADDER TIER" tier={userInfo.expected} />
+        </div>
+        <div
+          style={{
+            position: "absolute",
+            top: 1585 / 2,
+            left: "50%",
+            fontSize: 16 / 2,
+            letterSpacing: (16 * 0.5) / 2,
+            fontWeight: 800,
+          }}
+        >
+          - {dateYYYY} {dateMM} {dateDD} -
         </div>
       </div>
 
