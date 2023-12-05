@@ -16,8 +16,9 @@ function sanitizeResponse(res: any): ArchiveTier | null {
 }
 
 function getAverageTier(tiers: (ArchiveTier | null)[]): ArchiveTier {
-  const sum = tiers.reduce((sum, tier) => sum + (tier ? tier.point : 0), 0);
-  const average = sum / tiers.length;
+  const filtered = tiers.filter((tier) => !!tier) as ArchiveTier[];
+  const sum = filtered.reduce((sum, tier) => sum + tier.point, 0);
+  const average = sum / filtered.length;
 
   return {
     type: "vArchive",
