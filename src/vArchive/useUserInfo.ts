@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { ArchiveTier, LadderTier, UserInfo } from "./types";
+import { useEffect, useMemo, useState } from "react";
+import { ArchiveTier, LadderTier, RawTiers, UserInfo } from "./types";
 import { expectationTable, getTierFromPoint } from "./tierData";
 
 function sanitizeResponse(res: any): ArchiveTier | null {
@@ -89,14 +89,12 @@ export async function getUserInfo(userName: string) {
     .then((res) => res.json())
     .then(sanitizeResponse);
 
-  return Promise.all([button4, button5, button6, button8]).then(
-    ([b4, b5, b6, b8]) => ({
-      button4: b4,
-      button5: b5,
-      button6: b6,
-      button8: b8,
-    })
-  );
+  return Promise.all([button4, button5, button6, button8]).then((res) => {
+    if (res.filter((x) => !!x).length === 0) return null;
+
+    const [b4, b5, b6, b8] = res;
+    return { button4: b4, button5: b5, button6: b6, button8: b8 };
+  });
 }
 
 export function useUserInfo(
@@ -106,30 +104,35 @@ export function useUserInfo(
     boolean
   >
 ) {
-  const [data, setData] = useState<UserInfo | null>(null);
+  const [data, setData] = useState<RawTiers | null>(null);
 
   useEffect(() => {
     getUserInfo(userName).then(setData);
   }, [userName]);
 
-  return data
-    ? {
-        button4: selectedButtons.button4 ? data.button4 : null,
-        button5: selectedButtons.button5 ? data.button5 : null,
-        button6: selectedButtons.button6 ? data.button6 : null,
-        button8: selectedButtons.button8 ? data.button8 : null,
-        average: getAverageTier([
-          selectedButtons.button4 ? data.button4 : null,
-          selectedButtons.button5 ? data.button5 : null,
-          selectedButtons.button6 ? data.button6 : null,
-          selectedButtons.button8 ? data.button8 : null,
-        ]),
-        expected: getExpectedTier([
-          selectedButtons.button4 ? data.button4 : null,
-          selectedButtons.button5 ? data.button5 : null,
-          selectedButtons.button6 ? data.button6 : null,
-          selectedButtons.button8 ? data.button8 : null,
-        ]),
-      }
-    : null;
+  return useMemo(
+    () =>
+      data
+        ? {
+            name: userName,
+            button4: selectedButtons.button4 ? data.button4 : null,
+            button5: selectedButtons.button5 ? data.button5 : null,
+            button6: selectedButtons.button6 ? data.button6 : null,
+            button8: selectedButtons.button8 ? data.button8 : null,
+            average: getAverageTier([
+              selectedButtons.button4 ? data.button4 : null,
+              selectedButtons.button5 ? data.button5 : null,
+              selectedButtons.button6 ? data.button6 : null,
+              selectedButtons.button8 ? data.button8 : null,
+            ]),
+            expected: getExpectedTier([
+              selectedButtons.button4 ? data.button4 : null,
+              selectedButtons.button5 ? data.button5 : null,
+              selectedButtons.button6 ? data.button6 : null,
+              selectedButtons.button8 ? data.button8 : null,
+            ]),
+          }
+        : null,
+    [data, selectedButtons, userName]
+  );
 }

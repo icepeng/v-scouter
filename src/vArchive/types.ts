@@ -24,9 +24,15 @@ export interface LadderTier {
   code: TierCode | "UNRANKED";
 }
 
-export interface UserInfo {
+export interface RawTiers {
   button4: ArchiveTier | null;
   button5: ArchiveTier | null;
   button6: ArchiveTier | null;
   button8: ArchiveTier | null;
+}
+
+export interface UserInfo extends RawTiers {
+  name: string;
+  average: ArchiveTier;
+  expected: LadderTier;
 }

@@ -34,7 +34,6 @@ const RAW_RUNTIME_STATE =
           ["eslint", "npm:8.55.0"],\
           ["eslint-plugin-react-hooks", "virtual:ed4fab70be02eb7673c411df6b9b238c989fe1eb8e1d687df9830b9f65b7a6c0666d708042bf7b006cb5cd4afedd212a1a719b203793201aadec235d509dfd40#npm:4.6.0"],\
           ["eslint-plugin-react-refresh", "virtual:ed4fab70be02eb7673c411df6b9b238c989fe1eb8e1d687df9830b9f65b7a6c0666d708042bf7b006cb5cd4afedd212a1a719b203793201aadec235d509dfd40#npm:0.4.5"],\
-          ["html2canvas", "npm:1.4.1"],\
           ["react", "npm:18.2.0"],\
           ["react-dom", "virtual:ed4fab70be02eb7673c411df6b9b238c989fe1eb8e1d687df9830b9f65b7a6c0666d708042bf7b006cb5cd4afedd212a1a719b203793201aadec235d509dfd40#npm:18.2.0"],\
           ["typescript", "patch:typescript@npm%3A5.3.2#optional!builtin<compat/typescript>::version=5.3.2&hash=e012d7"],\
@@ -1102,15 +1101,6 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
-    ["base64-arraybuffer", [\
-      ["npm:1.0.2", {\
-        "packageLocation": "./.yarn/cache/base64-arraybuffer-npm-1.0.2-18f4899892-3acac95c70.zip/node_modules/base64-arraybuffer/",\
-        "packageDependencies": [\
-          ["base64-arraybuffer", "npm:1.0.2"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
     ["brace-expansion", [\
       ["npm:1.1.11", {\
         "packageLocation": "./.yarn/cache/brace-expansion-npm-1.1.11-fb95eb05ad-695a56cd05.zip/node_modules/brace-expansion/",\
@@ -1235,16 +1225,6 @@ const RAW_RUNTIME_STATE =
           ["path-key", "npm:3.1.1"],\
           ["shebang-command", "npm:2.0.0"],\
           ["which", "npm:2.0.2"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["css-line-break", [\
-      ["npm:2.1.0", {\
-        "packageLocation": "./.yarn/cache/css-line-break-npm-2.1.0-a1fd810d69-b2222d99d5.zip/node_modules/css-line-break/",\
-        "packageDependencies": [\
-          ["css-line-break", "npm:2.1.0"],\
-          ["utrie", "npm:1.0.2"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -1817,17 +1797,6 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/cache/has-flag-npm-4.0.0-32af9f0536-2e789c61b7.zip/node_modules/has-flag/",\
         "packageDependencies": [\
           ["has-flag", "npm:4.0.0"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["html2canvas", [\
-      ["npm:1.4.1", {\
-        "packageLocation": "./.yarn/cache/html2canvas-npm-1.4.1-fa13983145-6de86f7576.zip/node_modules/html2canvas/",\
-        "packageDependencies": [\
-          ["html2canvas", "npm:1.4.1"],\
-          ["css-line-break", "npm:2.1.0"],\
-          ["text-segmentation", "npm:1.0.3"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -2838,16 +2807,6 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
-    ["text-segmentation", [\
-      ["npm:1.0.3", {\
-        "packageLocation": "./.yarn/cache/text-segmentation-npm-1.0.3-634201c349-8b9ae8524e.zip/node_modules/text-segmentation/",\
-        "packageDependencies": [\
-          ["text-segmentation", "npm:1.0.3"],\
-          ["utrie", "npm:1.0.2"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
     ["text-table", [\
       ["npm:0.2.0", {\
         "packageLocation": "./.yarn/cache/text-table-npm-0.2.0-d92a778b59-02805740c1.zip/node_modules/text-table/",\
@@ -2960,16 +2919,6 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
-    ["utrie", [\
-      ["npm:1.0.2", {\
-        "packageLocation": "./.yarn/cache/utrie-npm-1.0.2-909cbd985c-eaffe645bd.zip/node_modules/utrie/",\
-        "packageDependencies": [\
-          ["utrie", "npm:1.0.2"],\
-          ["base64-arraybuffer", "npm:1.0.2"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
     ["v-scouter", [\
       ["workspace:.", {\
         "packageLocation": "./",\
@@ -2983,7 +2932,6 @@ const RAW_RUNTIME_STATE =
           ["eslint", "npm:8.55.0"],\
           ["eslint-plugin-react-hooks", "virtual:ed4fab70be02eb7673c411df6b9b238c989fe1eb8e1d687df9830b9f65b7a6c0666d708042bf7b006cb5cd4afedd212a1a719b203793201aadec235d509dfd40#npm:4.6.0"],\
           ["eslint-plugin-react-refresh", "virtual:ed4fab70be02eb7673c411df6b9b238c989fe1eb8e1d687df9830b9f65b7a6c0666d708042bf7b006cb5cd4afedd212a1a719b203793201aadec235d509dfd40#npm:0.4.5"],\
-          ["html2canvas", "npm:1.4.1"],\
           ["react", "npm:18.2.0"],\
           ["react-dom", "virtual:ed4fab70be02eb7673c411df6b9b238c989fe1eb8e1d687df9830b9f65b7a6c0666d708042bf7b006cb5cd4afedd212a1a719b203793201aadec235d509dfd40#npm:18.2.0"],\
           ["typescript", "patch:typescript@npm%3A5.3.2#optional!builtin<compat/typescript>::version=5.3.2&hash=e012d7"],\
